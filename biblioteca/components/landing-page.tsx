@@ -118,6 +118,53 @@ function LandingPage() {
           <ChevronDown size={20} />
         </div>
       </section>
+
+      {/* Sobre */}
+      <section id="sobre" className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-primary">Quem somos</span>
+              <h2 className="text-4xl font-black text-foreground mt-2 mb-6 leading-tight">
+                Sobre a<br />Biblioteca
+              </h2>
+              <p className="text-foreground/60 leading-relaxed mb-4">
+                Nossa biblioteca comunitária nasceu do desejo de levar cultura e conhecimento para todos. Com um acervo diversificado de livros e filmes, buscamos ser um ponto de encontro para leitores de todas as idades.
+              </p>
+              <p className="text-foreground/60 leading-relaxed mb-8">
+                Funcionamos como um espaço aberto e acolhedor onde a comunidade pode acessar gratuitamente obras literárias, cinematográficas e muito mais, tudo de forma simples e organizada.
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { icon: <BookOpen size={18} />, title: "Acervo literário", desc: "Mais de 500 títulos catalogados" },
+                  { icon: <Film size={18} />, title: "Videoteca", desc: "120+ filmes disponíveis" },
+                  { icon: <Users size={18} />, title: "Comunidade ativa", desc: "Mais de 1.200 usuários" },
+                  { icon: <Heart size={18} />, title: "Voluntariado", desc: "Mantida pela comunidade" },
+                ].map(item => (
+                  <div key={item.title} className="flex gap-3 p-4 rounded-xl bg-muted">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">{item.icon}</div>
+                    <div>
+                      <div className="text-sm font-semibold text-foreground">{item.title}</div>
+                      <div className="text-xs text-muted-foreground">{item.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative">
+              <img
+                src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=700&h=800&fit=crop&auto=format"
+                alt="Livros organizados em estante"
+                className="rounded-2xl w-full object-cover shadow-xl"
+              />
+              <div className="absolute -bottom-5 -left-5 bg-[#ffe500] text-foreground rounded-2xl p-5 shadow-lg">
+                <div className="text-3xl font-black">8+</div>
+                <div className="text-sm font-medium">anos de história</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
