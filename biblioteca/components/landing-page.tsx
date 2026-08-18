@@ -165,6 +165,29 @@ function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* História */}
+      <section className="py-24 bg-[#0f172a]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">Nossa trajetória</span>
+            <h2 className="text-4xl font-black text-white mt-2">História do Projeto</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { ano: "2015", titulo: "A semente", desc: "Um grupo de voluntários começou com apenas 50 livros doados pela comunidade, com o sonho de tornar a leitura acessível a todos." },
+              { ano: "2018", titulo: "A videoteca", desc: "Com o crescimento do acervo, expandimos para filmes em DVD, atendendo às necessidades de diferentes públicos e faixas etárias." },
+              { ano: "Hoje", titulo: "Uma comunidade", desc: "Hoje somos um espaço consolidado, com mais de 500 livros, 120 filmes e 1.200 usuários ativos que fazem parte desta história." },
+            ].map((item, i) => (
+              <div key={i} className="relative p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/8 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-primary text-white font-black text-sm flex items-center justify-center mb-4">{item.ano}</div>
+                <h3 className="text-lg font-bold text-white mb-2">{item.titulo}</h3>
+                <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
