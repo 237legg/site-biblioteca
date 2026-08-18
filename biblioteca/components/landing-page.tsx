@@ -258,6 +258,71 @@ function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Localização */}
+      <section id="localizacao" className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">Como chegar</span>
+            <h2 className="text-4xl font-black text-foreground mt-2">Localização</h2>
+          </div>
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div className="rounded-2xl overflow-hidden shadow-lg bg-muted aspect-[4/3] flex items-center justify-center border border-border">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60105.57855936698!2d-45.509736!3d-22.4256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc0e5e7b0b4cf5%3A0x9c9e3b9a6e4b8c8d!2sItajub%C3%A1%2C%20MG!5e0!3m2!1spt-BR!2sbr!4v1691800000000!5m2!1spt-BR!2sbr"
+                width="100%"
+                height="100%"
+                style={{ border: 0, minHeight: "350px" }}
+                allowFullScreen
+                loading="lazy"
+                title="Localização da biblioteca"
+              />
+            </div>
+            <div className="flex flex-col gap-6">
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-4">Como nos encontrar</h3>
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-muted">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                      <MapPin size={18} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-foreground text-sm">Endereço</div>
+                      <div className="text-muted-foreground text-sm">Rua Exemplo, 123 — Centro<br />Itajubá — MG, 37500-000</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-muted">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                      <Phone size={18} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-foreground text-sm">Telefone</div>
+                      <div className="text-muted-foreground text-sm">(35) 3629-0000</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4 p-4 rounded-xl bg-muted">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                      <Mail size={18} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-foreground text-sm">E-mail</div>
+                      <div className="text-muted-foreground text-sm">contato@biblioteca.org.br</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a
+                href="https://wa.me/5535999990000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-[#25D366] text-white font-semibold hover:bg-[#20c25b] transition-colors"
+              >
+                <MessageCircle size={20} /> Chamar no WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
