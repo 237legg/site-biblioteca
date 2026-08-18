@@ -335,6 +335,47 @@ function LandingPage() {
           <ContactForm />
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-[#0f172a] text-white/70 pt-14 pb-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid md:grid-cols-3 gap-10 mb-10">
+            <div>
+              <div className="flex items-center gap-1 text-white font-bold text-xl mb-3">
+                <span className="text-primary font-black">&laquo;</span>
+                <span>biblioteca</span>
+                <span className="text-primary font-black">&raquo;</span>
+              </div>
+              <p className="text-sm leading-relaxed">Um espaço de cultura, aprendizado e comunidade. Venha nos conhecer!</p>
+            </div>
+            <div>
+              <div className="text-white font-semibold text-sm mb-4">Navegação</div>
+              <div className="flex flex-col gap-2 text-sm">
+                {navLinks.map(l => (
+                  <button key={l.id} onClick={() => { window.scrollTo(0, 0); setTimeout(() => scrollTo(l.id), 100); }}
+                    className="text-left hover:text-primary transition-colors">{l.label}</button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="text-white font-semibold text-sm mb-4">Contato</div>
+              <div className="flex flex-col gap-2 text-sm">
+                <div className="flex items-center gap-2"><MapPin size={13} className="text-primary" /> Rua Exemplo, 123 — Centro, Itajubá/MG</div>
+                <div className="flex items-center gap-2"><Phone size={13} className="text-primary" /> (35) 3629-0000</div>
+                <div className="flex items-center gap-2"><Mail size={13} className="text-primary" /> contato@biblioteca.org.br</div>
+                <div className="flex items-center gap-2"><MessageCircle size={13} className="text-[#25D366]" /> WhatsApp: (35) 99999-0000</div>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <div>© 2024 Biblioteca Comunitária. Todos os direitos reservados.</div>
+            <div className="flex items-center gap-1.5">
+              Desenvolvido por
+              <span className="text-primary font-semibold">&laquo; byron.solutions &raquo;</span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
