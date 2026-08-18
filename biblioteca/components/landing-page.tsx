@@ -323,6 +323,18 @@ function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Contato */}
+      <section id="contato" className="py-24 bg-[#f8fafc]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="max-w-2xl mx-auto text-center mb-12">
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">Fale conosco</span>
+            <h2 className="text-4xl font-black text-foreground mt-2 mb-3">Mande uma mensagem</h2>
+            <p className="text-muted-foreground">Tem alguma dúvida ou quer saber mais sobre a biblioteca? Entre em contato!</p>
+          </div>
+          <ContactForm />
+        </div>
+      </section>
     </div>
   );
 }
