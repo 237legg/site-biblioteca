@@ -69,6 +69,55 @@ function LandingPage() {
         )}
       </header>
 
+      {/* Hero */}
+      <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600&h=900&fit=crop&auto=format"
+          alt="Biblioteca com estantes de livros"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a]/85 via-[#0f172a]/60 to-transparent" />
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-20">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/20 border border-primary/40 text-primary text-xs font-semibold mb-6 uppercase tracking-widest">
+              <BookOpen size={13} /> Biblioteca Comunitária
+            </div>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6">
+              Um espaço para<br />
+              <span className="text-[#ffe500]">aprender</span> e<br />
+              <span className="text-primary">crescer.</span>
+            </h1>
+            <p className="text-white/75 text-lg leading-relaxed mb-8 max-w-lg">
+              Acervo com livros e filmes disponíveis para a comunidade. Visite-nos, faça um empréstimo e explore novos mundos.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <button onClick={() => scrollTo("sobre")}
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary/90 transition-colors">
+                Conhecer a Biblioteca <ArrowRight size={16} />
+              </button>
+              <button onClick={() => scrollTo("doacoes")}
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#ffe500] text-[#0f172a] font-semibold hover:bg-yellow-300 transition-colors">
+                <Heart size={16} /> Fazer Doação
+              </button>
+            </div>
+            <div className="mt-12 flex gap-8">
+              {[
+                { n: "500+", label: "Livros" },
+                { n: "120+", label: "Filmes" },
+                { n: "1.2k+", label: "Usuários" },
+              ].map(s => (
+                <div key={s.label}>
+                  <div className="text-3xl font-black text-white">{s.n}</div>
+                  <div className="text-white/50 text-sm">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/40 animate-bounce">
+          <ChevronDown size={20} />
+        </div>
+      </section>
     </div>
   );
 }
