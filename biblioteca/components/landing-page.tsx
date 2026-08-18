@@ -188,6 +188,56 @@ function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Doações */}
+      <section id="doacoes" className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="bg-gradient-to-br from-primary to-[#0097a7] rounded-3xl p-10 lg:p-14">
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-widest text-white/60">Contribua conosco</span>
+                <h2 className="text-4xl font-black text-white mt-2 mb-4">Faça uma doação e transforme vidas</h2>
+                <p className="text-white/75 leading-relaxed mb-6">
+                  Aceitamos livros, filmes em DVD e revistas em bom estado de conservação. Cada doação ajuda a ampliar nosso acervo e levar conhecimento para mais pessoas da comunidade.
+                </p>
+                <div className="flex flex-col gap-3">
+                  {[
+                    "Livros de qualquer gênero literário",
+                    "Filmes em DVD bem conservados",
+                    "Revistas e periódicos",
+                    "Gibis e histórias em quadrinhos",
+                  ].map(item => (
+                    <div key={item} className="flex items-center gap-3 text-white/90 text-sm">
+                      <CheckCircle size={16} className="text-[#ffe500] flex-shrink-0" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-2xl p-8 border border-white/20">
+                <div className="text-white font-bold text-lg mb-6">Como doar?</div>
+                <div className="flex flex-col gap-4">
+                  {[
+                    { n: "01", t: "Separe os itens", d: "Verifique se os livros e filmes estão em bom estado de conservação." },
+                    { n: "02", t: "Entre em contato", d: "Fale conosco pelo WhatsApp ou e-mail para combinar a entrega." },
+                    { n: "03", t: "Entregue na biblioteca", d: "Traga os itens pessoalmente durante o horário de funcionamento." },
+                  ].map(step => (
+                    <div key={step.n} className="flex gap-4">
+                      <div className="w-8 h-8 rounded-lg bg-[#ffe500] text-foreground font-black text-xs flex items-center justify-center flex-shrink-0">{step.n}</div>
+                      <div>
+                        <div className="text-white font-semibold text-sm">{step.t}</div>
+                        <div className="text-white/60 text-xs leading-relaxed">{step.d}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
     </div>
   );
 }
