@@ -237,7 +237,27 @@ function LandingPage() {
         </div>
       </section>
 
-
+      {/* Horário */}
+      <section className="py-16 bg-muted/50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">Quando nos visitar</span>
+            <h2 className="text-3xl font-black text-foreground mt-2">Horário de Funcionamento</h2>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+            {[
+              { dia: "Segunda — Sexta", horario: "08h00 — 18h00", cor: "border-primary" },
+              { dia: "Sábado", horario: "08h00 — 13h00", cor: "border-[#ffe500]" },
+              { dia: "Domingo", horario: "Fechado", cor: "border-red-300" },
+            ].map(h => (
+              <div key={h.dia} className={`bg-white rounded-2xl p-6 border-t-4 ${h.cor} shadow-sm text-center`}>
+                <div className="text-sm font-semibold text-muted-foreground mb-1">{h.dia}</div>
+                <div className="text-xl font-black text-foreground">{h.horario}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
