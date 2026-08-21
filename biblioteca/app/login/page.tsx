@@ -13,6 +13,7 @@ export default function loginPage() {
         e.preventDefault();
         if(email === "admin@biblioteca.com" && senha === "admin123") {
             alert("Login efetuado!");
+            router.push('/admin')
         } else {
             alert("Credenciais inválidas!")
         }
@@ -52,13 +53,15 @@ export default function loginPage() {
                         <input
                             type="password"
                             required
-                            value={email}
-                            onChange = {(e) => setEmail(e.target.value)}
+                            value={senha}
+                            onChange = {(e) => setSenha(e.target.value)}
                             placeholder="••••••••"
                             className="w-full px-4 py-3 border border-black/20 rounded-lg mb-6 bg-[#F1F5F9]"
                         />
-                        <button type="submit" className="w-full py-3 bg-[#00bfd8] text-white font-semibold rounded-lg hover:bg-blue-700">
-                            Entrar
+                        <button 
+                            type="submit" 
+                            className="w-full py-3 bg-[#00bfd8] text-white font-semibold rounded-lg hover:bg-[#00BFD8]/90 transition-colors">
+                                Entrar
                         </button>
                     </form>
                 </div>
