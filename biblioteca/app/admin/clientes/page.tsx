@@ -2,19 +2,10 @@
 
 import { useState } from "react";
 import { Search, Plus, Pen, Trash2, X } from "lucide-react";
-
-const CLIENTS_DATA = [
-  { id: "1", name: "Ana Clara Souza", initials: "AC", phone: "(35) 99812-3456", email: "ana.souza@email.com" },
-  { id: "2", name: "Pedro Henrique Lima", initials: "PH", phone: "(35) 98723-4567", email: "pedro.lima@email.com" },
-  { id: "3", name: "Mariana Ferreira Costa", initials: "MF", phone: "(35) 99634-5678", email: "mariana.costa@email.com" },
-  { id: "4", name: "Lucas Oliveira Santos", initials: "LO", phone: "(35) 97545-6789", email: "lucas.santos@email.com" },
-  { id: "5", name: "Isabela Rodrigues Alves", initials: "IR", phone: "(35) 99456-7890", email: "isabela.alves@email.com" },
-  { id: "6", name: "Gabriel Martins Pereira", initials: "GM", phone: "(35) 98367-8901", email: "gabriel.pereira@email.com" },
-  { id: "7", name: "Júlia Mendes Barbosa", initials: "JM", phone: "(35) 99278-9012", email: "julia.barbosa@email.com" },
-];
+import { useData } from "@/context/DataContext";
 
 export default function AdminClientes() {
-  const [clients, setClients] = useState(CLIENTS_DATA);
+  const { clients = [], setClients } = useData();
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -26,8 +17,8 @@ export default function AdminClientes() {
 
   const filteredClients = clients.filter(
     (client) =>
-      client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      client.email.toLowerCase().includes(searchTerm.toLowerCase())
+      client.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      client.email?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getInitials = (name: string) => {
@@ -44,7 +35,7 @@ export default function AdminClientes() {
     setIsModalOpen(true);
   };
 
-  const handleOpenEditModal = (client: typeof CLIENTS_DATA[0]) => {
+  const handleOpenEditModal = (client: any) => {
     setEditingId(client.id);
     setFormData({
       name: client.name,
