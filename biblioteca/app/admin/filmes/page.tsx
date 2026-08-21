@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Plus, Pen, Trash2, X, ChevronDown } from "lucide-react";
+import { Search, Plus, Pen, Trash2, X } from "lucide-react";
 import { useData } from "@/context/DataContext";
 
 export default function AdminFilmes() {
@@ -15,10 +15,8 @@ export default function AdminFilmes() {
     category: "",
     rating: "",
     location: "",
-    status: "disponivel",
   });
 
-  // Filtro defensivo contra valores nulos/indefinidos
   const filteredMovies = (movies || []).filter(
     (movie) =>
       movie?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -45,7 +43,6 @@ export default function AdminFilmes() {
       category: "",
       rating: "",
       location: "",
-      status: "disponivel",
     });
     setIsModalOpen(true);
   };
@@ -57,7 +54,6 @@ export default function AdminFilmes() {
       category: movie.category || "",
       rating: movie.rating || movie.ageRating || "",
       location: movie.location || "",
-      status: movie.status?.toLowerCase() === "emprestado" ? "emprestado" : "disponivel",
     });
     setIsModalOpen(true);
   };
@@ -70,7 +66,6 @@ export default function AdminFilmes() {
       category: "",
       rating: "",
       location: "",
-      status: "disponivel",
     });
   };
 
@@ -82,9 +77,6 @@ export default function AdminFilmes() {
     e.preventDefault();
     if (!formData.title) return;
 
-    const formattedStatus =
-      formData.status === "emprestado" ? "Emprestado" : "Disponível";
-
     if (editingId) {
       setMovies((prevMovies) =>
         prevMovies.map((movie) =>
@@ -95,7 +87,6 @@ export default function AdminFilmes() {
                 category: formData.category || "-",
                 rating: formData.rating || "-",
                 location: formData.location || "-",
-                status: formattedStatus,
               }
             : movie
         )
@@ -107,7 +98,7 @@ export default function AdminFilmes() {
         category: formData.category || "-",
         rating: formData.rating || "-",
         location: formData.location || "-",
-        status: formattedStatus,
+        status: "Disponível",
       };
       setMovies((prevMovies) => [newMovie, ...prevMovies]);
     }
@@ -276,43 +267,19 @@ export default function AdminFilmes() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-bold text-slate-800">
-                    Localização
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Ex: DVD-A1"
-                    value={formData.location}
-                    onChange={(e) =>
-                      setFormData({ ...formData, location: e.target.value })
-                    }
-                    className="w-full px-4 py-3 bg-slate-50/80 border border-slate-200/80 rounded-xl text-sm focus:outline-none focus:border-[#00BFD8] focus:bg-white transition-colors placeholder:text-slate-400 text-slate-800"
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-bold text-slate-800">
-                    Status
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={formData.status}
-                      onChange={(e) =>
-                        setFormData({ ...formData, status: e.target.value })
-                      }
-                      className="w-full px-4 py-3 bg-slate-50/80 border border-slate-200/80 rounded-xl text-sm focus:outline-none focus:border-[#00BFD8] focus:bg-white transition-colors text-slate-800 font-medium appearance-none cursor-pointer pr-10"
-                    >
-                      <option value="disponivel">disponivel</option>
-                      <option value="emprestado">emprestado</option>
-                    </select>
-                    <ChevronDown
-                      size={18}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-700 pointer-events-none"
-                    />
-                  </div>
-                </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-bold text-slate-800">
+                  Localização
+                </label>
+                <input
+                  type="text"
+                  placeholder="Ex: DVD-A1"
+                  value={formData.location}
+                  onChange={(e) =>
+                    setFormData({ ...formData, location: e.target.value })
+                  }
+                  className="w-full px-4 py-3 bg-slate-50/80 border border-slate-200/80 rounded-xl text-sm focus:outline-none focus:border-[#00BFD8] focus:bg-white transition-colors placeholder:text-slate-400 text-slate-800"
+                />
               </div>
 
               <div className="flex items-center justify-end gap-3 pt-4">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Plus, Pen, Trash2, X, ChevronDown } from "lucide-react";
+import { Search, Plus, Pen, Trash2, X } from "lucide-react";
 import { useData } from "@/context/DataContext";
 
 export default function AdminLivros() {
@@ -10,16 +10,15 @@ export default function AdminLivros() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  
   const [formData, setFormData] = useState({
     title: "",
     author: "",
     category: "",
     ageRating: "",
     location: "",
-    status: "disponivel",
   });
 
-  // Filtro com validação defensiva contra campos indefinidos
   const filteredBooks = (books || []).filter(
     (book) =>
       book?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -48,7 +47,6 @@ export default function AdminLivros() {
       category: "",
       ageRating: "",
       location: "",
-      status: "disponivel",
     });
     setIsModalOpen(true);
   };
@@ -61,7 +59,6 @@ export default function AdminLivros() {
       category: book.category || "",
       ageRating: book.ageRating || "",
       location: book.location || "",
-      status: book.status?.toLowerCase() === "emprestado" ? "emprestado" : "disponivel",
     });
     setIsModalOpen(true);
   };
@@ -75,7 +72,6 @@ export default function AdminLivros() {
       category: "",
       ageRating: "",
       location: "",
-      status: "disponivel",
     });
   };
 
@@ -86,9 +82,6 @@ export default function AdminLivros() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.title || !formData.author) return;
-
-    const formattedStatus =
-      formData.status === "emprestado" ? "Emprestado" : "Disponível";
 
     if (editingId) {
       setBooks((prevBooks) =>
@@ -101,7 +94,6 @@ export default function AdminLivros() {
                 category: formData.category || "-",
                 ageRating: formData.ageRating || "-",
                 location: formData.location || "-",
-                status: formattedStatus,
               }
             : book
         )
@@ -114,7 +106,7 @@ export default function AdminLivros() {
         category: formData.category || "-",
         ageRating: formData.ageRating || "-",
         location: formData.location || "-",
-        status: formattedStatus,
+        status: "Disponível", 
       };
       setBooks((prevBooks) => [newBook, ...prevBooks]);
     }
@@ -303,43 +295,19 @@ export default function AdminLivros() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-slate-900">
-                    Localização
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Ex: A-01"
-                    value={formData.location}
-                    onChange={(e) =>
-                      setFormData({ ...formData, location: e.target.value })
-                    }
-                    className="w-full px-4 py-3 bg-[#f1f5f9]/70 border border-slate-200/50 rounded-xl text-sm focus:outline-none focus:border-[#00BFD8] focus:bg-white transition-colors placeholder:text-slate-400 text-slate-800"
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-slate-900">
-                    Status
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={formData.status}
-                      onChange={(e) =>
-                        setFormData({ ...formData, status: e.target.value })
-                      }
-                      className="w-full px-4 py-3 bg-[#f1f5f9]/70 border border-slate-200/50 rounded-xl text-sm focus:outline-none focus:border-[#00BFD8] focus:bg-white transition-colors text-slate-800 appearance-none cursor-pointer pr-10 font-normal"
-                    >
-                      <option value="disponivel">disponivel</option>
-                      <option value="emprestado">emprestado</option>
-                    </select>
-                    <ChevronDown
-                      size={18}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-700 pointer-events-none"
-                    />
-                  </div>
-                </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-slate-900">
+                  Localização
+                </label>
+                <input
+                  type="text"
+                  placeholder="Ex: A-01"
+                  value={formData.location}
+                  onChange={(e) =>
+                    setFormData({ ...formData, location: e.target.value })
+                  }
+                  className="w-full px-4 py-3 bg-[#f1f5f9]/70 border border-slate-200/50 rounded-xl text-sm focus:outline-none focus:border-[#00BFD8] focus:bg-white transition-colors placeholder:text-slate-400 text-slate-800"
+                />
               </div>
 
               <div className="flex items-center justify-end gap-3 pt-4">
