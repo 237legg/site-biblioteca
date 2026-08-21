@@ -31,7 +31,7 @@ const INITIAL_MOVIES = [
   { id: "7", title: "Sociedade dos Poetas Mortos", category: "Drama", rating: "12+", location: "D-01", status: "Disponível" },
 ];
 
-const INITIAL_CLIENTS: Client[] = [
+const INITIAL_CLIENTS = [
   { id: "1", name: "Ana Clara Souza", initials: "AC", phone: "(35) 99812-3456", email: "ana.souza@email.com" },
   { id: "2", name: "Pedro Henrique Lima", initials: "PH", phone: "(35) 98723-4567", email: "pedro.lima@email.com" },
   { id: "3", name: "Mariana Ferreira Costa", initials: "MF", phone: "(35) 99634-5678", email: "mariana.costa@email.com" },
@@ -58,7 +58,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [clients, setClients] = useState<Client[]>(INITIAL_CLIENTS);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Carrega os dados do localStorage apenas no cliente após a montagem inicial
   useEffect(() => {
     try {
       const savedBooks = localStorage.getItem("biblioteca_books");
@@ -74,7 +73,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
     setIsLoaded(true);
   }, []);
 
-  // Salva no localStorage sempre que houver alterações
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem("biblioteca_books", JSON.stringify(books));
