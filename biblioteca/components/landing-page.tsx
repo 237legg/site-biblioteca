@@ -244,7 +244,7 @@ function LandingPage() {
             <span className="text-xs font-bold uppercase tracking-widest text-primary">Quando nos visitar</span>
             <h2 className="text-3xl font-black text-foreground mt-2">Horário de Funcionamento</h2>
           </div>
-          <div className="grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+          <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
             {[
               { dia: "Segunda — Sexta", horario: "08h00 — 18h00", cor: "border-primary" },
               { dia: "Sábado", horario: "08h00 — 13h00", cor: "border-[#ffe500]" },
