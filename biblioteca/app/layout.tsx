@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
+import { Outfit } from "next/font/google"
 import "./globals.css";
+import { DataProvider } from "@/context/DataContext";
+ 
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-outfit",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Biblioteca Comunitária",
@@ -14,7 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className="font-[Outfit,sans-serif] antialiased">{children}</body>
+      <body className="font-[Outfit,sans-serif] antialiased">
+        <DataProvider>
+          {children}
+        </DataProvider>
+      </body>
     </html>
   );
 }

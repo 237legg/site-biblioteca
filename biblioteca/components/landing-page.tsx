@@ -1,10 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   BookOpen, Film, Users, ArrowRight, CheckCircle, Heart,
   ChevronDown, MapPin, Phone, Mail, MessageCircle, Menu,
 } from "lucide-react";
+
+// ─── Types ──────────────────────────────────────────────────────────────────
+type Page = "landing" | "login" | "admin";
 
 // ─── Landing Page ────────────────────────────────────────────────────────────
 function LandingPage() {
@@ -34,37 +38,68 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen bg-background font-[Outfit,sans-serif]">
-      {/* Navbar */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/95 backdrop-blur shadow-sm border-b border-border" : "bg-transparent"}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        ? "bg-white/95 backdrop-blur shadow-sm border-b border-border text-foreground"
+        : "bg-transparent text-white"
+        }`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <button onClick={() => scrollTo("inicio")} className="flex items-center gap-1 text-foreground font-bold text-lg">
+          <button onClick={() => scrollTo("inicio")} className={`flex items-center gap-1 font-bold text-lg transition-colors ${scrolled ? "text-foreground" : "text-white"}`}>
             <span className="text-primary font-black">&laquo;</span>
             <span>biblioteca</span>
             <span className="text-primary font-black">&raquo;</span>
           </button>
+
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map(l => (
               <button
                 key={l.id}
                 onClick={() => scrollTo(l.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeSection === l.id ? "text-primary bg-primary/10" : "text-foreground/70 hover:text-foreground hover:bg-muted"}`}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeSection === l.id
+                  ? "text-primary bg-primary/10"
+                  : scrolled
+                    ? "text-foreground/70 hover:text-foreground hover:bg-muted"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                  }`}
               >
                 {l.label}
               </button>
             ))}
           </nav>
+
           <div className="flex items-center gap-3">
-            <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 rounded-lg hover:bg-muted">
+            <Link
+              href="/login"
+              className="hidden md:flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors"
+            >
+              Área Admin <ArrowRight size={15} />
+            </Link>
+
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className={`md:hidden p-2 rounded-lg transition-colors ${scrolled ? "hover:bg-muted text-foreground" : "hover:bg-white/10 text-white"}`}
+            >
               <Menu size={20} />
             </button>
           </div>
         </div>
+
         {menuOpen && (
-          <div className="md:hidden border-t border-border bg-white px-4 py-3 flex flex-col gap-1">
+          <div className="md:hidden border-t border-border bg-white px-4 py-3 flex flex-col gap-1 text-foreground">
             {navLinks.map(l => (
-              <button key={l.id} onClick={() => scrollTo(l.id)}
-                className="text-left px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">{l.label}</button>
+              <button
+                key={l.id}
+                onClick={() => scrollTo(l.id)}
+                className="text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-muted transition-colors"
+              >
+                {l.label}
+              </button>
             ))}
+            <Link
+              href="/admin"
+              className="mt-2 flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold"
+            >
+              Área Admin <ArrowRight size={15} />
+            </Link>
           </div>
         )}
       </header>
@@ -431,4 +466,12 @@ function ContactForm() {
   );
 }
 
-export default LandingPage;
+export default function LibraryApp() {
+  const [page, setPage] = useState<Page>("landing");
+
+  return (
+    <div className="size-full font-[Outfit,sans-serif]">
+      {page === "landing" && <LandingPage />}
+    </div>
+  );
+}
