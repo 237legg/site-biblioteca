@@ -10,6 +10,12 @@ export interface Client {
   email?: string;
 }
 
+const INITIAL_EMPRESTIMOS = [
+  { id: '#001', cliente: 'Ana Clara Souza', item: '1984', tipo: 'book', emprestimo: '2024-07-20', devolucao: '2024-08-03', status: 'Em atraso' },
+  { id: '#002', cliente: 'Pedro Henrique Lima', item: 'Matrix', tipo: 'movie', emprestimo: '2024-07-28', devolucao: '2024-08-11', status: 'Em andamento' },
+  { id: '#003', cliente: 'Mariana Ferreira Costa', item: 'Harry Potter', tipo: 'book', emprestimo: '2024-07-15', devolucao: '2024-07-29', status: 'Em atraso' },
+];
+
 const INITIAL_BOOKS = [
   { id: "1", title: "O Senhor dos Anéis", author: "J.R.R. Tolkien", category: "Fantasia", ageRating: "14+", location: "A-01", status: "Disponível" },
   { id: "2", title: "1984", author: "George Orwell", category: "Ficção Científica", ageRating: "16+", location: "B-03", status: "Emprestado" },
@@ -48,6 +54,9 @@ interface DataContextType {
   setMovies: React.Dispatch<React.SetStateAction<any[]>>;
   clients: Client[];
   setClients: React.Dispatch<React.SetStateAction<Client[]>>;
+  // Adicionado: Empréstimos
+  emprestimos: any[];
+  setEmprestimos: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 const DataContext = createContext<DataContextType | null>(null);
@@ -56,6 +65,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [books, setBooks] = useState<any[]>(INITIAL_BOOKS);
   const [movies, setMovies] = useState<any[]>(INITIAL_MOVIES);
   const [clients, setClients] = useState<Client[]>(INITIAL_CLIENTS);
+  // Adicionado: State para Empréstimos
+  const [emprestimos, setEmprestimos] = useState<any[]>(INITIAL_EMPRESTIMOS);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -63,10 +74,13 @@ export function DataProvider({ children }: { children: ReactNode }) {
       const savedBooks = localStorage.getItem("biblioteca_books");
       const savedMovies = localStorage.getItem("biblioteca_movies");
       const savedClients = localStorage.getItem("biblioteca_clients");
+      // Adicionado: Puxar empréstimos do localStorage
+      const savedEmprestimos = localStorage.getItem("biblioteca_emprestimos");
 
       if (savedBooks) setBooks(JSON.parse(savedBooks));
       if (savedMovies) setMovies(JSON.parse(savedMovies));
       if (savedClients) setClients(JSON.parse(savedClients));
+      if (savedEmprestimos) setEmprestimos(JSON.parse(savedEmprestimos));
     } catch (e) {
       console.error("Erro ao carregar do localStorage", e);
     }
@@ -91,8 +105,15 @@ export function DataProvider({ children }: { children: ReactNode }) {
     }
   }, [clients, isLoaded]);
 
+  // Adicionado: Salvar empréstimos no localStorage
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem("biblioteca_emprestimos", JSON.stringify(emprestimos));
+    }
+  }, [emprestimos, isLoaded]);
+
   return (
-    <DataContext.Provider value={{ books, setBooks, movies, setMovies, clients, setClients }}>
+    <DataContext.Provider value={{ books, setBooks, movies, setMovies, clients, setClients, emprestimos, setEmprestimos }}>
       {children}
     </DataContext.Provider>
   );

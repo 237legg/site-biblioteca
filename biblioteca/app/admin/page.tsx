@@ -5,24 +5,17 @@ import { BookMarked, Clapperboard, RefreshCw, CircleAlert, ArrowRight, BookOpen,
 import { useData } from "@/context/DataContext";
 
 export default function AdminDashboard() {
-  const { books, movies } = useData();
-
-  const rawLoans = [
-    ["#001", "Ana Clara Souza", "1984", "book", "2024-07-20", "2024-08-03", "Em atraso"],
-    ["#002", "Pedro Henrique Lima", "Matrix", "movie", "2024-07-28", "2024-08-11", "Em andamento"],
-    ["#003", "Mariana Ferreira Costa", "Harry Potter e a Pedra Filosofal", "book", "2024-07-15", "2024-07-29", "Em atraso"],
-    ["#004", "Lucas Oliveira Santos", "Divertida Mente", "movie", "2024-08-01", "2024-08-15", "Em andamento"],
-    ["#005", "Isabela Rodrigues Alves", "Cem Anos de Solidão", "book", "2024-07-22", "2024-08-05", "Em atraso"],
-  ];
-
-  const loans = rawLoans.map(([id, client, item, type, dateOut, dateDue, status]) => ({
-    id, client, item, type, dateOut, dateDue, status
-  }));
+  const { books, movies, emprestimos } = useData();
+  const listaEmprestimos = emprestimos || [];
+  const emprestimosAtivos = listaEmprestimos.filter(emp => emp.status === "Em andamento").length;
+  const emprestimosAtrasados = listaEmprestimos.filter(emp => emp.status === "Em atraso").length;
+  const emprestimosRecentes = listaEmprestimos.slice(0, 5);
 
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
+        {/* CARD LIVROS */}
         <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm min-h-[160px]">
           <div className="flex items-center justify-between text-gray-500 mb-4">
             <div className="w-10 h-10 rounded-xl bg-[#00a8ba]/10 text-[#00a8ba] flex items-center justify-center">
@@ -35,6 +28,7 @@ export default function AdminDashboard() {
           </span>
         </div>
 
+        {/* CARD FILMES */}
         <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm min-h-[160px]">
           <div className="flex items-center justify-between text-gray-500 mb-4">
             <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
@@ -49,6 +43,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+        {/* CARD ATIVOS */}
         <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm min-h-[160px]">
           <div className="flex items-center justify-between text-gray-500 mb-4">
             <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center">
@@ -56,13 +51,14 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div>
-            <p className="text-3xl font-extrabold text-slate-900">3</p>
+            <p className="text-3xl font-extrabold text-slate-900">{emprestimosAtivos}</p>
             <span className="text-sm font-medium text-gray-500 mt-1">
               Empréstimos ativos
             </span>
           </div>
         </div>
         
+        {/* CARD ATRASADOS */}
         <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm min-h-[160px]">
           <div className="flex items-center justify-between text-gray-500 mb-4">
             <div className="w-10 h-10 rounded-xl bg-red-50 text-red-500 flex items-center justify-center">
@@ -70,7 +66,7 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div>
-            <p className="text-3xl font-extrabold text-slate-900">3</p>
+            <p className="text-3xl font-extrabold text-slate-900">{emprestimosAtrasados}</p>
             <span className="text-sm font-medium text-gray-500 mt-1">
               Empréstimos em atraso
             </span>
@@ -104,42 +100,52 @@ export default function AdminDashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-600">
-              {loans.map((loan) => (
-                <tr key={loan.id} className="hover:bg-slate-50/50 transition-colors">
-                  <td className="px-6 py-5 text-slate-400 font-medium font-['Consolas']">{loan.id}</td>
-                  <td className="px-6 py-5 font-medium text-slate-900">
-                    {loan.client}
-                  </td>
-                  <td className="px-6 py-5">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs ${
-                      loan.type === "book"
-                        ? "bg-cyan-50 text-[#00a8ba]"
-                        : "bg-purple-50 text-purple-600"
-                    }`}
-                    >
-                      {loan.type === "book" ? (
-                        <BookOpen size={12} />
-                      ) : (
-                        <Film size={12} />
-                      )}
-                      {loan.item}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-slate-500">{loan.dateOut}</td>
-                  <td className="px-6 py-4 text-slate-500">{loan.dateDue}</td>
-                  <td className="px-6 py-4">
-                    <span 
-                      className={`inline-block px-3.5 py-1 rounded-full text-xs font-semibold ${
-                        loan.status === "Em atraso"
-                          ? "bg-red-100/80 text-red-600"
-                          : "bg-sky-100/80 text-sky-600"
-                      }`}
-                    >
-                      {loan.status}
-                    </span>
+              {emprestimosRecentes.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-6 py-8 text-center text-slate-400">
+                    Nenhum empréstimo registrado ainda.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                emprestimosRecentes.map((emp) => (
+                  <tr key={emp.id} className="hover:bg-slate-50/50 transition-colors">
+                    <td className="px-6 py-5 text-slate-400 font-medium font-['Consolas']">{emp.id}</td>
+                    <td className="px-6 py-5 font-medium text-slate-900">
+                      {emp.cliente}
+                    </td>
+                    <td className="px-6 py-5">
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium ${
+                        emp.tipo === "book"
+                          ? "bg-cyan-50 text-[#00a8ba]"
+                          : "bg-purple-50 text-purple-600"
+                      }`}
+                      >
+                        {emp.tipo === "book" ? (
+                          <BookOpen size={12} />
+                        ) : (
+                          <Film size={12} />
+                        )}
+                        {emp.item}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-slate-500">{emp.emprestimo}</td>
+                    <td className="px-6 py-4 text-slate-500">{emp.devolucao}</td>
+                    <td className="px-6 py-4">
+                      <span 
+                        className={`inline-block px-3.5 py-1 rounded-full text-xs font-semibold ${
+                          emp.status === "Em atraso"
+                            ? "bg-red-100/80 text-red-600"
+                            : emp.status === "Concluído"
+                            ? "bg-emerald-100 text-emerald-600"
+                            : "bg-sky-100/80 text-sky-600"
+                        }`}
+                      >
+                        {emp.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
